@@ -1,0 +1,13 @@
+# render.yaml
+services:
+  - type: web
+    name: huffman-compressor
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn huffman_web.wsgi:application
+    workingDir: backend
+    envVars:
+      - key: DJANGO_SECRET_KEY
+        value: your-secret-key
+      - key: DEBUG
+        value: false
