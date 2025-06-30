@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Decompress Huff File</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+<h1>Huffman Decompressor</h1>
+<button id="theme-toggle-btn" class="theme-toggle-btn" title="Toggle Theme">🌙</button>
+
+<div class="content">
+    <!-- your form here -->
+    <form action="{% url 'decompress' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" name="huff_file" accept=".huff" required>
+        <br>
+        <button type="submit">Decompress</button>
+    </form>
+</div>
+
+
+
+<br>
+<a href="{% url 'compress' %}">Go to Compression</a>
+<script>
+    const toggleBtn = document.getElementById('theme-toggle-btn');
+    const savedTheme = localStorage.getItem('theme');
+
+    const applyTheme = (theme) => {
+        if (theme === 'dark') {
+            document.body.classList.add('dark-mode');
+            toggleBtn.textContent = '🌞';
+        } else {
+            document.body.classList.remove('dark-mode');
+            toggleBtn.textContent = '🌙';
+        }
+    };
+
+    if (savedTheme) {
+        applyTheme(savedTheme);
+    }
+
+    toggleBtn.addEventListener('click', () => {
+        const isDark = document.body.classList.toggle('dark-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        toggleBtn.textContent = isDark ? '🌞' : '🌙';
+    });
+</script>
+
+</body>
+</html>
