@@ -17,7 +17,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'compressor',  # ← your custom app
+    'backend.compressor',  # ← your custom app
 ]
 
 MIDDLEWARE = [
