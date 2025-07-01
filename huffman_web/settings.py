@@ -35,10 +35,26 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'huffman_web.urls'
 
 # 2. Add the frontend template directory
+# TEMPLATES = [
+#     {
+#         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+#         'DIRS': [os.path.join(BASE_DIR, '../frontend/templates')],  # ← points to frontend templates
+#         'APP_DIRS': True,
+#         'OPTIONS': {
+#             'context_processors': [
+#                 'django.template.context_processors.debug',
+#                 'django.template.context_processors.request',
+#                 'django.contrib.auth.context_processors.auth',
+#                 'django.contrib.messages.context_processors.messages',
+#             ],
+#         },
+#     },
+# ]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, '../frontend/templates')],  # ← points to frontend templates
+        'DIRS': [os.path.join(BASE_DIR, 'frontend', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -50,6 +66,10 @@ TEMPLATES = [
         },
     },
 ]
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend', 'static')]
+
+
 
 WSGI_APPLICATION = 'huffman_web.wsgi.application'
 
@@ -75,7 +95,7 @@ USE_TZ = True
 
 # 4. Static and media files for serving CSS/JS and uploaded files
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, '../frontend/static')]
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, '../frontend/static')]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

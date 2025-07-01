@@ -16,10 +16,17 @@ def compress_view(request):
         output_path = compress(full_path)
         output_filename = os.path.basename(output_path)
 
+        # Delete original uploaded file
+        if os.path.exists(full_path):
+            os.remove(full_path)
+
         return render(request, 'compressor/download.html', {
-            'file_url': fs.url(output_filename)
+            'file_url': fs.url(output_filename),
+            'file_path': output_path  # Pass for scheduled deletion
         })
+
     return render(request, 'compressor/upload.html')
+
 
 def decompress_view(request):
     if request.method == 'POST' and request.FILES.get('huff_file'):
@@ -31,7 +38,14 @@ def decompress_view(request):
         output_path = decompress(full_path)
         output_filename = os.path.basename(output_path)
 
+        # Delete uploaded .huff file
+        if os.path.exists(full_path):
+            os.remove(full_path)
+
         return render(request, 'compressor/download.html', {
-            'file_url': fs.url(output_filename)
+            'file_url': fs.url(output_filename),
+            'file_path': output_path
         })
+
     return render(request, 'compressor/decompress.html')
+
